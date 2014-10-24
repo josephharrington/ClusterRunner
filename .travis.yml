@@ -3,12 +3,12 @@ python:
   - "3.4"
 
 env:
-  - TEST_DIR=test/unit
-  - TEST_DIR=test/functional
+  - NOSE_ARGS="-v test/unit"
+  - NOSE_ARGS="-s -v test/functional" CR_VERBOSE=1
 
 # command to install dependencies
 install: "pip install -r requirements.txt"
 
 # command to run tests
-script: nosetests $TEST_DIR
+script: nosetests $NOSE_ARGS
 
