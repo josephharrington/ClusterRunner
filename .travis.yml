@@ -12,7 +12,7 @@ install:
 
 script:
   - DO_PYLINT_CMD="pylint app"
-  - TEST_UNIT_CMD="nosetests -v test/unit"
+  - TEST_UNIT_CMD="nosetests -v --with-xcoverage --cover-package=app test/unit"
   - TEST_FUNC_CMD="nosetests -s -v test/functional"
   - TEST_BUILD_UNIT_CMD="./main.py build"
   - export CR_VERBOSE=1  # turns on stdout logging for master and slave services during functional tests
@@ -21,3 +21,7 @@ script:
   - if [[ $DO_UNIT == true ]]; then $TEST_UNIT_CMD; fi
   - if [[ $DO_FUNCTIONAL == true ]]; then $TEST_FUNC_CMD; fi
   - if [[ $DO_FUNCTIONAL == true ]]; then $TEST_BUILD_UNIT_CMD; fi
+
+after_success:
+  - coveralls
+
