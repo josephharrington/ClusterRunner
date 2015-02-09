@@ -49,8 +49,8 @@ class SerialRequestHandler(object):
 
         :type build_id: int
         :type job_config: JobConfig
-        :param project_type: the docker, directory, or git repo project_type that this build is running in
-        :type project_type: project_type.project_type.ProjectType
+        :param project_type: the project_type instance that this build is running in
+        :type project_type: ProjectType
         :rtype: list[Subjob]
         """
         atoms_list = job_config.atomizer.atomize_in_project(project_type)
