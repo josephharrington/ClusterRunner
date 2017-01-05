@@ -5,9 +5,9 @@ python:
 
 # each line defined in env will create a new parallel test job on Travis
 env:
-  - TARGETS="lint test-unit-with-coverage"
-  - TARGETS="test-integration-with-coverage"
-  - TARGETS="test-functional test-unit-via-clusterrunner"
+  - TARGETS="lint test-unit-with-coverage" COV_LABEL="unit"
+  - TARGETS="test-integration-with-coverage" COV_LABEL="integration"
+  - TARGETS="test-functional test-unit-via-clusterrunner" COV_LABEL=""
 
 install:
   - make init
@@ -17,5 +17,4 @@ script:
   - make $TARGETS
 
 after_success:
-  - pip install python-coveralls==2.5.0  # Do not put in requirements.txt; it will not install on Windows.
-  - coveralls
+  - if [ -n "$COV_LABEL" ]; then bash <(curl -s https://codecov.io/bash) -cF $COV_LABEL; fi
